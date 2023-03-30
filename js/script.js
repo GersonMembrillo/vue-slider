@@ -16,6 +16,8 @@ const { createApp } = Vue;
 createApp({
 	data() {
 		return {
+			activeIndex: 0,
+			autoscroll: null,
 			slides: [
 				{
 					image: 'img/01.webp',
@@ -43,15 +45,23 @@ createApp({
 					text: 'Horizon Forbidden West continues the story of Aloy, a young hunter of the Nora tribe and a clone of the Old World scientist Elisabet Sobeck, as she leads a band of companions on a quest to the arcane frontier known as the Forbidden West.',
 				},
 			],
-			activeIndex: 0,
 		};
 	},
 	methods: {
 		nextSlide() {
 			this.activeIndex++;
+			if (this.activeIndex > this.slides.length - 1) {
+				this.activeIndex = 0;
+			}
 		},
 		prevSlide() {
 			this.activeIndex--;
+			if (this.activeIndex < 0) {
+				this.activeIndex = this.slides.length - 1;
+			}
+		},
+		changeSlide(slideIndex) {
+			this.activeIndex = slideIndex;
 		},
 	},
 }).mount('#app');

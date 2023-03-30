@@ -25,14 +25,19 @@
 			<div id="wrapper">
 				<div class="slider">
 					<div class="slideContainer">
-						<div class="slide active">
+						<div class="slide position-relative" :key="slides[activeIndex].title">
 							<img :src="slides[activeIndex].image" :alt="slides[activeIndex].title" />
+							<div class="text position-absolute p-2">
+								<h3>{{slides[activeIndex].title}}</h3>
+								<p>{{slides[activeIndex].text}}</p>
+							</div>
 						</div>
 					</div>
 					<div class="thumbContainer">
 						<div
 							class="thumb"
-							:class="{'active': activeIndex === index}"
+							:class="index === activeIndex ? 'inner-border' : '' "
+							@click="changeSlide(index)"
 							v-for="(slide,index) in slides"
 							:key="index"
 						>
